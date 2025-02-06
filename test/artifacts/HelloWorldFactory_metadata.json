@@ -6,10 +6,76 @@
 	"output": {
 		"abi": [
 			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_index",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "callSayHelloFromFactory",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_index",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_newString",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "callSetHelloWorldFromFactory",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "createHelloWorld",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_index",
+						"type": "uint256"
+					}
+				],
+				"name": "getHelloWorldByIndex",
+				"outputs": [
+					{
+						"internalType": "contract HelloWorld",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			}
 		],
@@ -49,11 +115,11 @@
 			]
 		},
 		"test/HelloWorldFactory.sol": {
-			"keccak256": "0x6dde8d6caced1440735f51861fa5ae315a70f0785b1c307d5bf261e0dbd227aa",
+			"keccak256": "0x483599c7da18c06c0eb30ed12b0fe8287a6d91eb67ed9d426ebad86b25926f7b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://e50c2bb4c887eeca071e69ca31c94cd43360f0396dffe7bad8191bad6c267652",
-				"dweb:/ipfs/Qmaq1kKMuSA3vYBNkdEoq5R3d9MY4ASTH2cVBwh7xShVcX"
+				"bzz-raw://9e573a46b79a392b679f30022473f03124aab490a033e142edea71858e67a12c",
+				"dweb:/ipfs/QmeD5BVQBzmAtSLqSfxsdD5dNFEZ1c87AHhGkjvVgv7TYg"
 			]
 		}
 	},
