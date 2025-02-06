@@ -7,15 +7,19 @@ pragma solidity ^0.8.20;
 // import "./HelloWorld.sol"; 
 
 // 方法3：只引入HelloWorld.sol文件中的HelloWorld合约
-import {HelloWorld} from "./HelloWorld.sol"; 
+ import {HelloWorld} from "./HelloWorld.sol"; 
 
 // 方法4：引入网络上的合约
+// import {HelloWorld} from "https://github.com/archcat111/remix-blank/blob/main/test/HelloWorld.sol"; 
+
+// 方法5：引入通过NPM安装的包中的合约
+// import {HelloWorld} from "@companyName/product/contract"
 
 contract HelloWorldFactory {
 
     HelloWorld helloWorld;
 
     function createHelloWorld() public {
-
+        helloWorld = new HelloWorld();
     }
 }
