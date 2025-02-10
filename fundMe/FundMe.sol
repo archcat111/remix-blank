@@ -9,6 +9,8 @@ import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interf
 //4：最小值使用USD而不是ETH
 //5：修改owner
 //6：筹款资金达到目标值，生产商可以提款
+//7：筹款资金没有达到目标值，投资人可以退款
+//8：锁定期内达到目标值可以替换、锁定期外未达到目标值可以退款
 contract FundMe {
 
     mapping(address => uint256) public fundersToAmount; //投资人以及投资金额
@@ -17,11 +19,13 @@ contract FundMe {
     uint256 constant TARGET = 200; //USD
 
     address owner;
+    uint256 deploymentTimestamp; //部署时间，单位为秒
+    uint256 lockTime; //锁定时长，单位为秒
 
     AggregatorV3Interface internal dataFeed;
 
     //构造函数，在合约初始化的时候运行一次，之后不会再运行
-    constructor() { 
+    constructor(uint256 _lockTime) { 
         //如果要使用任何第三方的服务就不能够在本地网络中进行测试运行，因为本地chain中没有该第三方服务将自己的合约部署到该chain上
         //所以这里可以使用ChainLink在sepolia网络中部署的Aggregator合约的Address
         dataFeed = AggregatorV3Interface(0x694AA1769357215DE4FAC081bf1f309aDC325306); //sepolia
@@ -29,10 +33,15 @@ contract FundMe {
         //设置owner的设置
         //将部署合约的人作为owner
         owner = msg.sender;
+        deploymentTimestamp = block.timestamp;
+        lockTime = _lockTime;
     }
 
-    function fund() external payable {
+    function fund() external payable { 
+        //每次众筹投资的金额必须大小MINIMUM_VALUE
         require(convertEthToUsd(msg.value)>=MINIMUM_VALUE, "Send more ETH, The minimum ETH value is one"); //revert
+        //必须在锁定期内才可以众筹投资
+        require(block.timestamp < deploymentTimestamp + lockTime, "Window is closed");
         fundersToAmount[msg.sender] = msg.value;
     }
 
@@ -56,10 +65,8 @@ contract FundMe {
         return _ethAmount * ethPrice/(10**8); //_ethAmount的单位是wei
     }
 
-    function getFund() external {
-        //限制可以调用该getFund()的人
-        require(msg.sender == owner, "This function can only be call by owner");
-
+    // 生厂商获取合约中的金额
+    function getFund() external WindowClosed onlyOwner{
         //address(this)表示当前合约
         //这里address(this).balance取到的值的单位是wei
         //需要将该合约中的ETH转换位USD来对比是否达到目标金额
@@ -75,11 +82,35 @@ contract FundMe {
         //// call方式
         bool result;
         (result, ) = payable(msg.sender).call{value: address(this).balance}("");
+        require(result, "Transfer is failed");
     }
 
     //修改owner
-    function transferOwnerShip(address _newOwner) public {
-        require(msg.sender == owner, "This function can only be call by owner");
+    function transferOwnerShip(address _newOwner) public onlyOwner {
         owner = _newOwner;
+    }
+
+    //退款
+    function refund() external WindowClosed{
+        require(convertEthToUsd(address(this).balance) < TARGET, "Target is reached!");
+        require(fundersToAmount[msg.sender] != 0, "There is no fund for you");
+        //投资人必须在锁定期后才可以退款
+        
+
+        bool result;
+        (result, ) = payable(msg.sender).call{value: fundersToAmount[msg.sender]}("");
+        require(result, "Transfer is failed");
+        fundersToAmount[msg.sender] = 0;
+    }
+
+    //用于判断锁定期必须结束
+    modifier WindowClosed() {
+        require(block.timestamp >= deploymentTimestamp + lockTime, "Window is not closed");
+        _;  //代表应用该修改器的函数中的其他的操作
+    }
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "This function can only be call by owner");
+        _;
     }
 }
