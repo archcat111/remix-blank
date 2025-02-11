@@ -1,0 +1,66 @@
+{
+	"compiler": {
+		"version": "0.8.26+commit.8a97fa7a"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"name": "a",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "addOne",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"fundToken/artifacts/Inherit.sol": "Parent"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"fundToken/artifacts/Inherit.sol": {
+			"keccak256": "0x675c7dace252ce7c4b4839b849ac314ef22496cc40c64d9e790a7f54e9ae36d7",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://8d407a2e8e9c3fc6e18acc71368217c3ac14bdf53d196cf89bd97e244678a97f",
+				"dweb:/ipfs/QmSzLSHvPQv3C5mLkCCVPnUtsWmykjmmJGZ47n7wNspjCY"
+			]
+		}
+	},
+	"version": 1
+}
