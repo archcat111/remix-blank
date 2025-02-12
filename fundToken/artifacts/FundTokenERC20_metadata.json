@@ -220,6 +220,19 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amountToClaim",
+						"type": "uint256"
+					}
+				],
+				"name": "claim",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "decimals",
 				"outputs": [
@@ -412,6 +425,9 @@
 				"balanceOf(address)": {
 					"details": "See {IERC20-balanceOf}."
 				},
+				"claim(uint256)": {
+					"details": "See {IERC20-transfer}. Requirements: - `to` cannot be the zero address. - the caller must have a balance of at least `value`."
+				},
 				"decimals()": {
 					"details": "Returns the number of decimals used to get its user representation. For example, if `decimals` equals `2`, a balance of `505` tokens should be displayed to a user as `5.05` (`505 / 10 ** 2`). Tokens usually opt for a value of 18, imitating the relationship between Ether and Wei. This is the default value returned by this function, unless it's overridden. NOTE: This information is only used for _display_ purposes: it in no way affects any of the arithmetic of the contract, including {IERC20-balanceOf} and {IERC20-transfer}."
 				},
@@ -441,7 +457,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"fundToken/Inherit.sol": "FundTokenERC20"
+			"fundToken/FundTokenERC20.sol": "FundTokenERC20"
 		},
 		"evmVersion": "cancun",
 		"libraries": {},
@@ -504,19 +520,19 @@
 			]
 		},
 		"fundMe/FundMe.sol": {
-			"keccak256": "0xe820ac54b63612895c722852609416d2f55e93675f87f0e624aa5083a94db21c",
+			"keccak256": "0x25be8e27f458f5388ce15be099ed5b95fe27acd7c411e1dd298a2b4dd1531012",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f8466917bf5c6f80d4d7a8aca7cfd6a2a69e5b30041e9c06e2bac2f0738e895e",
-				"dweb:/ipfs/QmSoiyvFFq3vQwNaa5PLzoiwaAYEmaqrtChRPuxHmMUJXA"
+				"bzz-raw://ddd7f06798da962faf04ad30bdafd1530b6026a9415f804d8068bd1dc74f91fc",
+				"dweb:/ipfs/Qmej5wr2hacb8j5hCKYdUVTgHCuCRszUunCbfny2dZb7BP"
 			]
 		},
-		"fundToken/Inherit.sol": {
-			"keccak256": "0x8163cf396e4a778853fd62040a5055f40ecf17f525ee7d9af412938dc9c556b9",
+		"fundToken/FundTokenERC20.sol": {
+			"keccak256": "0x8c5ae1ccb1b7b08d49b7e09bbd14dece44baf718068b7a87d703df18c604a033",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://321a9cb12989fbaff23adff71f4ff931532f8a9158683c827a0a4a0ccd87db01",
-				"dweb:/ipfs/QmR9ZBintNb6wTqv1EyYqb8yLRubATjSRVvtqYk998yBVL"
+				"bzz-raw://92f85d838447d929bf06e917b44cf9be666de502bfbb50969c41551d830a29c9",
+				"dweb:/ipfs/QmemNZzsGuSp2LSmpQkMtoxWELjscW2kUs7DCrwXuG4YgB"
 			]
 		}
 	},

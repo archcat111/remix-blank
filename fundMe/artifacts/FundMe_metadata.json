@@ -64,7 +64,51 @@
 			},
 			{
 				"inputs": [],
+				"name": "getFundSuccess",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "refund",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_erc20Addr",
+						"type": "address"
+					}
+				],
+				"name": "setERC20Addr",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "funder",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amountToUpdate",
+						"type": "uint256"
+					}
+				],
+				"name": "setFunderToAmount",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -119,11 +163,11 @@
 			]
 		},
 		"fundMe/FundMe.sol": {
-			"keccak256": "0xe820ac54b63612895c722852609416d2f55e93675f87f0e624aa5083a94db21c",
+			"keccak256": "0x25be8e27f458f5388ce15be099ed5b95fe27acd7c411e1dd298a2b4dd1531012",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f8466917bf5c6f80d4d7a8aca7cfd6a2a69e5b30041e9c06e2bac2f0738e895e",
-				"dweb:/ipfs/QmSoiyvFFq3vQwNaa5PLzoiwaAYEmaqrtChRPuxHmMUJXA"
+				"bzz-raw://ddd7f06798da962faf04ad30bdafd1530b6026a9415f804d8068bd1dc74f91fc",
+				"dweb:/ipfs/Qmej5wr2hacb8j5hCKYdUVTgHCuCRszUunCbfny2dZb7BP"
 			]
 		}
 	},
