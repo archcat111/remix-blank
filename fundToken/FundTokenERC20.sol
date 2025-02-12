@@ -22,8 +22,39 @@ contract FundTokenERC20 is ERC20 {
     function mint(uint256 amountToMint) public {
         //该投资人想要铸造的token数量必须<=投资人的投资金额
         require(fundMe.fundersToAmount(msg.sender) >= amountToMint, "You can not mint this many tokens");
+        require(fundMe.getFundSuccess(), "The FundMe is not completed yet");
 
         //铸造Token
         _mint(msg.sender, amountToMint);
+
+        //修改fundme合约中该投资人剩余没有兑换token的投资金额
+        fundMe.setFunderToAmount(msg.sender, fundMe.fundersToAmount(msg.sender) - amountToMint);
     }
+
+    //transfer函数可以直接使用ERC20中的transfer函数
+    /**
+     * @dev See {IERC20-transfer}.
+     *
+     * Requirements:
+     *
+     * - `to` cannot be the zero address.
+     * - the caller must have a balance of at least `value`.
+     */
+    // function transfer(address to, uint256 value) public virtual returns (bool) {
+    //     address owner = _msgSender();
+    //     _transfer(owner, to, value);
+    //     return true;
+    // }
+
+    //投资人使用ERC20的Token找生产商兑换商品
+    function claim(uint256 amountToClaim) public {
+        //complete claim  
+        require(balanceOf(msg.sender) >= amountToClaim, "You dont have enough ERC20 tokens");
+        require(fundMe.getFundSuccess(), "The FundMe is not completed yet");
+        //TODO 具体的兑换逻辑
+
+        //burn amountToClaim Tokens
+        _burn(msg.sender, amountToClaim);
+    }
+
 }

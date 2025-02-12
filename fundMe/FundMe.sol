@@ -22,6 +22,9 @@ contract FundMe {
     uint256 deploymentTimestamp; //部署时间，单位为秒
     uint256 lockTime; //锁定时长，单位为秒
 
+    address erc20Addr;
+    bool public getFundSuccess = false; //生厂商是否成功获取所有的众筹金额
+
     AggregatorV3Interface internal dataFeed;
 
     //构造函数，在合约初始化的时候运行一次，之后不会再运行
@@ -83,6 +86,7 @@ contract FundMe {
         bool result;
         (result, ) = payable(msg.sender).call{value: address(this).balance}("");
         require(result, "Transfer is failed");
+        getFundSuccess = true;
     }
 
     //修改owner
@@ -101,6 +105,18 @@ contract FundMe {
         (result, ) = payable(msg.sender).call{value: fundersToAmount[msg.sender]}("");
         require(result, "Transfer is failed");
         fundersToAmount[msg.sender] = 0;
+    }
+
+    // 修改mapping中投资人的投资值，amountToUpdate是修改的结果值
+    // 只有ERC20的这个外部合约可以修改该mapping中投资人的投资金额
+    function setFunderToAmount(address funder, uint256 amountToUpdate) external  {
+        require(msg.sender == erc20Addr, "you do not have permission to call this function");
+        fundersToAmount[funder] = amountToUpdate;
+    }
+
+    //告诉fundme合约，可以修改mapping中投资人金额的外部合约的地址
+    function setERC20Addr(address _erc20Addr) public onlyOwner {
+        erc20Addr = _erc20Addr;
     }
 
     //用于判断锁定期必须结束
